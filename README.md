@@ -1,5 +1,5 @@
 # DSE Search Simple Autocomplete
-![Alt text](http://i.imgur.com/UoQ5F7w.png)
+![Alt text](http://i.imgur.com/ATeiogp.png)
 
 This is an extension of the Amazon Book Solr Demo to show how to do simple Autocomplete. I am by no means an HTML expert, in fact I've never really used it before this demo so there's going to be lots of changes/improvements coming in the future.
 
