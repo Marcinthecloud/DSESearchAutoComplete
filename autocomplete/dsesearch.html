@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+
+
+
+<HTML><HEAD><TITLE>DataStax</TITLE>
+
+<p> Qury time in MS	<p id="insert"></p>
+
+<META http-equiv=content-type content="text/html; charset=UTF-8">
+
+	<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+	<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+	<script>
+	 $(function() {
+	 var URL_PREFIX = "http://localhost:8983/solr/amazon.metadata/select?q=title:";
+	 var URL_SUFFIX = "&fl=title&wt=json";
+	 $("#searchBox").autocomplete({
+	 source : function(request, response) {
+	 var URL = URL_PREFIX + $("#searchBox").val() + URL_SUFFIX;
+	 $.ajax({
+	 url : URL,
+	 success : function(data) {
+	 var docs = JSON.stringify(data.response.docs);
+	 var stats = JSON.stringify(data.responseHeader.QTime);
+	 var jsonData = JSON.parse(docs);
+	 var jsonStats = JSON.parse(stats);
+
+	 document.getElementById("insert").innerHTML = stats;
+	 response($.map(jsonData, function(value, key) {
+	 return {
+	 label : value.title
+	 }
+	 }));
+	 },
+	 dataType : 'jsonp',
+	 jsonp : 'json.wrf'
+	 });
+	 },
+	 minLength : 1
+	 })
+	 });
+	</script>
+
+<STYLE>BODY {
+	FONT-FAMILY: arial,sans-serif
+}
+TD {
+	FONT-FAMILY: arial,sans-serif
+}
+A {
+	FONT-FAMILY: arial,sans-serif
+}
+P {
+	FONT-FAMILY: arial,sans-serif
+}
+.h {
+	FONT-FAMILY: arial,sans-serif
+}
+.h {
+	FONT-SIZE: 16px
+}
+.q {
+	COLOR: #0000cc
+}
+</STYLE>
+
+
+
+
+<META content="MSHTML 6.00.2719.2200" name=GENERATOR></HEAD>
+
+  <BODY text=#000000 vLink=#551a8b aLink=#ff0000 link=#0000cc bgColor=#ffffff
+
+    onload=sf()>
+
+  <CENTER>
+
+  <TABLE cellSpacing=0 cellPadding=0 border=0>
+
+<TBODY>
+
+<TR>
+
+<TD><IMG height=110 alt=Google src="http://i.imgur.com/UoQ5F7w.png"
+
+  width=276></TD></TR></TBODY></TABLE><BR>
+
+<FORM name=search action=/search>
+
+<TABLE cellSpacing=0 cellPadding=4 border=0>
+
+<TBODY>
+
+<TR>
+
+<TD class=q noWrap><FONT size=-1><B><FONT
+
+  color=#000000>Auto Complete Search</FONT></B>&nbsp;&nbsp;&nbsp;&nbsp;<A class=q id=1a
+
+»</A></B></FONT></TD></TR></TBODY></TABLE>
+
+<TABLE cellSpacing=0 cellPadding=0>
+
+<TBODY>
+
+<TR>
+<label for="searchBox"> </label> <input id="searchBox"></input>
+
+</FONT>
+
+
+</FONT></P></CENTER></BODY></HTML>
